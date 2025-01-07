@@ -38,13 +38,15 @@ button {
   padding: 12px;
   border-color: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+  font-size: 20px;
 }
 input {
   width: 100%;
   outline-style: none;
 }
 button {
-  background-color: pink;
+  background-color: gray;
+  color: antiquewhite;
   cursor: pointer;
 }
 button:hover {

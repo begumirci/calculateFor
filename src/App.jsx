@@ -37,7 +37,7 @@ function App() {
         <div className='group'>
           <input
             type='text'
-            placeholder='Değişken gir'
+            placeholder='FOREX'
             value={valuable}
             onChange={(e) => handleClickInput(e)}
           />
@@ -59,7 +59,7 @@ function App() {
         <div className='group'>
           <input
             type='text'
-            placeholder='USD100'
+            placeholder='NASDAQ'
             value={nasValue}
             onChange={(e) => handleClickInputNas(e)}
           />

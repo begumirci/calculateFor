@@ -29,7 +29,7 @@ function App() {
 
   function handleRemoveNas() {
     setNasAnswer();
-    setNasValue();
+    setNasValue('');
   }
 
   function handleClickInputNas(e) {

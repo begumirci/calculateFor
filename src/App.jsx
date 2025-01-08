@@ -3,22 +3,28 @@ import { useState } from 'react';
 function App() {
   const [valuable, setValuble] = useState();
   const [answer, setAnswer] = useState();
+  const [half, setHalf] = useState();
+  const [quarter, setQuarter] = useState();
   const [nasValue, setNasValue] = useState();
   const [nasAnswer, setNasAnswer] = useState();
+  const [halfNas, setHalfNas] = useState();
+  const [quarterNas, setQuarterNas] = useState();
 
   function handleClickInput(e) {
     setValuble(e.target.value);
     setAnswer(1 / (10 * Number(e.target.value)));
+    setHalf(1 / (10 * Number(e.target.value)) / 2);
+    setQuarter(1 / (10 * Number(e.target.value)) / 4);
   }
 
-  function calculate() {
-    setAnswer(1 / (10 * Number(valuable)));
-    setNasAnswer((1 / (10 * Number(nasValue))) * 4);
-  }
+  // function calculate() {
+  //   setAnswer(1 / (10 * Number(valuable)));
+  //   setNasAnswer((1 / (10 * Number(nasValue))) * 4);
+  // }
 
   function handleRemove() {
     setAnswer();
-    setValuble();
+    setValuble('');
   }
 
   function handleRemoveNas() {
@@ -29,11 +35,20 @@ function App() {
   function handleClickInputNas(e) {
     setNasValue(e.target.value);
     setNasAnswer((1 / (10 * Number(e.target.value))) * 4);
+    setHalfNas(((1 / (10 * Number(e.target.value))) * 4) / 2);
+    setQuarterNas(((1 / (10 * Number(e.target.value))) * 4) / 4);
   }
+
+  const formatDecimal = (number, decimals = 2) => {
+    return number
+      .toFixed(decimals) // Ondalık kısmı sabitle
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ','); // Binlik ayracı olarak virgül ekle
+  };
 
   return (
     <div className='calculate'>
-      <div>
+      <h1>Risk Yönetimi</h1>
+      <div className='forex'>
         <div className='group'>
           <input
             type='text'
@@ -41,21 +56,31 @@ function App() {
             value={valuable}
             onChange={(e) => handleClickInput(e)}
           />
-
-          <button onClick={calculate}>Hesapla</button>
         </div>
 
         {answer !== undefined && answer !== Infinity && answer !== '' && (
           <div className='result'>
-            <span>Hesap Sonucu: </span>
-            <h5>{answer}</h5>
+            <div className='yanyana'>
+              <span>%1 Risk Hesap Sonucu: </span>
+              <h5>{formatDecimal(answer)}</h5>
+            </div>
+            <div className='yanyana'>
+              <span>%0.5 Risk Hesap Sonucu: </span>
+              <h5>{formatDecimal(half)}</h5>
+            </div>
+            <div className='yanyana'>
+              <span>%0.25 Risk Hesap Sonucu: </span>
+              <h5>{formatDecimal(quarter)}</h5>
+            </div>
           </div>
         )}
         {answer !== undefined && answer !== Infinity && answer !== '' && (
-          <button onClick={handleRemove}>Temizle</button>
+          <button className='remove' onClick={handleRemove}>
+            Temizle
+          </button>
         )}
       </div>
-      <div>
+      <div className='usd100'>
         <div className='group'>
           <input
             type='text'
@@ -63,22 +88,32 @@ function App() {
             value={nasValue}
             onChange={(e) => handleClickInputNas(e)}
           />
-
-          <button onClick={calculate}>Hesapla</button>
         </div>
 
         {nasAnswer !== undefined &&
           nasAnswer !== Infinity &&
           nasAnswer !== '' && (
             <div className='result'>
-              <span>Hesap Sonucu: </span>
-              <h5>{nasAnswer}</h5>
+              <div className='yanyana'>
+                <span>%1 Risk Hesap Sonucu: </span>
+                <h5>{formatDecimal(nasAnswer)}</h5>
+              </div>
+              <div className='yanyana'>
+                <span>%0.5 Risk Hesap Sonucu: </span>
+                <h5>{formatDecimal(halfNas)}</h5>
+              </div>
+              <div className='yanyana'>
+                <span>%0.25 Risk Hesap Sonucu: </span>
+                <h5>{formatDecimal(quarterNas)}</h5>
+              </div>
             </div>
           )}
         {nasAnswer !== undefined &&
           nasAnswer !== Infinity &&
           nasAnswer !== '' && (
-            <button onClick={handleRemoveNas}>Temizle</button>
+            <button onClick={handleRemoveNas} className='remove'>
+              Temizle
+            </button>
           )}
       </div>
     </div>
